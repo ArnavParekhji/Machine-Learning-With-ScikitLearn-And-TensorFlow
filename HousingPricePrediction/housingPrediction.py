@@ -143,27 +143,56 @@ full_pipeline = ColumnTransformer([
 housing_prepared = full_pipeline.fit_transform(housing)
 
 #--------------------USING LINEAR REGRESSION--------------------
-from sklearn.linear_model import LinearRegression
+##from sklearn.linear_model import LinearRegression
+##
+##lin_reg = LinearRegression()
+##lin_reg.fit(housing_prepared, housing_labels)
+##
+##some_data = housing.iloc[:5]
+##some_labels = housing_labels.iloc[:5]
+##some_data_prepared = full_pipeline.transform(some_data)
+##print("Predictions:", lin_reg.predict(some_data_prepared))
+##print("Labels:", list(some_labels))
+##
+##from sklearn.metrics import mean_squared_error                          #To find root mean squared error
+##
+##housing_predictions = lin_reg.predict(housing_prepared)
+##lin_mse = mean_squared_error(housing_labels, housing_predictions)
+##lin_rmse = np.sqrt(lin_mse)
+##print(lin_rmse)
 
-lin_reg = LinearRegression()
-lin_reg.fit(housing_prepared, housing_labels)
+
+#--------------------USING DECISION TREE REGRESSOR--------------------
+##from sklearn.tree import DecisionTreeRegressor
+##
+##tree_reg = DecisionTreeRegressor()
+##tree_reg.fit(housing_prepared, housing_labels)
+##housing_predictions = tree_reg.predict(housing_prepared)                #to test on the training set itself 
+##tree_mse = mean_squared_error(housing_labels, housing_predictions)
+##tree_rmse = np.sqrt(tree_mse)
+##print(tree_rmse)                                                        #returns 0 rmse, means model is overfitting the data
+
+
+##from sklearn.model_selection import cross_val_score
+##
+##scores = cross_val_score(tree_reg, housing_prepared, housing_labels, scoring="neg_mean_squared_error", cv=10)
+##tree_rmse_scores = np.sqrt(-scores)
+##print(tree_rmse_scores.std())                                             #gives output worse than linear regression, highly overfitting 
+
+
+#--------------------USING RANDOM FOREST REGRESSOR--------------------
+
+from sklearn.ensemble import RandomForestRegressor
+
+forest_reg = RandomForestRegressor()
+forest_reg.fit(housing_prepared, housing_labels)
 
 some_data = housing.iloc[:5]
 some_labels = housing_labels.iloc[:5]
 some_data_prepared = full_pipeline.transform(some_data)
-print("Predictions:", lin_reg.predict(some_data_prepared))
+
+print("Predictions:", forest_reg.predict(some_data_prepared))
 print("Labels:", list(some_labels))
-
-from sklearn.metrics import mean_squared_error #To find root mean squared error
-
-housing_predictions = lin_reg.predict(housing_prepared)
-lin_mse = mean_squared_error(housing_labels, housing_predictions)
-lin_rmse = np.sqrt(lin_mse)
-print(lin_rmse)
-
-
-
-
 
 
 
