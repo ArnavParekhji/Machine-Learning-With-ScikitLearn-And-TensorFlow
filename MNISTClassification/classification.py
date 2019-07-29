@@ -59,6 +59,33 @@ from sklearn.base import clone
 
 from sklearn.model_selection import cross_val_score
 
-print(cross_val_score(sgd_clf, X_train, y_train_5, cv=3, scoring="accuracy"))
+##print(cross_val_score(sgd_clf, X_train, y_train_5, cv=3, scoring="accuracy"))
 
 ##------------------------------------
+
+##-------USING A CONFUSION MATRIX-------
+
+from sklearn.model_selection import cross_val_predict
+from sklearn.metrics import confusion_matrix
+
+y_train_pred = cross_val_predict(sgd_clf, X_train, y_train_5, cv=3)
+
+##print(confusion_matrix(y_train_5, y_train_pred))
+
+##--------------------------------------
+
+##-------PRECISION AND RECALL-------
+
+from sklearn.metrics import precision_score, recall_score
+
+##print(precision_score(y_train_5, y_train_pred))
+##print(recall_score(y_train_5, y_train_pred))
+
+##-------Find f1_score = 2 / ((1 / precision) + (1 / recall))
+
+from sklearn.metrics import f1_score
+
+print(f1_score(y_train_5, y_train_pred))
+
+##----------------------------------
+
